@@ -11,10 +11,13 @@
 
 namespace Liip\ImagineBundle\Async;
 
+/**
+ * Class Commands.
+ *
+ * @deprecated
+ */
 class Commands
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     const RESOLVE_CACHE = 'liip_imagine_resolve_cache';
 }

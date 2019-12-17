@@ -20,7 +20,7 @@ use Enqueue\Null\NullContext;
 use Enqueue\Null\NullMessage;
 use Interop\Queue\Message;
 use Interop\Queue\Processor;
-use Liip\ImagineBundle\Async\CacheResolved;
+use Liip\ImagineBundle\Async\CacheResolvedAsync;
 use Liip\ImagineBundle\Async\Commands;
 use Liip\ImagineBundle\Async\ResolveCacheProcessor;
 use Liip\ImagineBundle\Async\Topics;
@@ -378,8 +378,8 @@ class ResolveCacheProcessorTest extends AbstractTest
         $producerMock
             ->expects($this->once())
             ->method('sendEvent')
-            ->with(Topics::CACHE_RESOLVED, $this->isInstanceOf(CacheResolved::class))
-        ->willReturnCallback(function ($topic, CacheResolved $message) {
+            ->with(Topics::CACHE_RESOLVED, $this->isInstanceOf(CacheResolvedAsync::class))
+        ->willReturnCallback(function ($topic, CacheResolvedAsync $message) {
             $this->assertSame('theImagePath', $message->getPath());
             $this->assertSame([
                 'fooFilter' => 'theImagePathfooFilterUri',

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults public="true"/>
+
+        <service id="liip_imagine.async.cache_resolver_processor" class="Liip\ImagineBundle\Async\CacheResolverProcessor">
+            <argument key="$filterManager" type="service" id="liip_imagine.filter.manager"/>
+            <argument key="$filterService" type="service" id="liip_imagine.service.filter"/>
+        </service>
+        <service id="Liip\ImagineBundle\Async\CacheResolverProcessorInterface" alias="liip_imagine.async.cache_resolver_processor"/>
+
+        <service id="liip_imagine.async.cache_resolver" class="Liip\ImagineBundle\Async\CacheResolver">
+            <argument key="$cacheResolverProcessor" type="service" id="liip_imagine.async.cache_resolver_processor"/>
+            <call method="setTransportFactories">
+                <argument type="tagged_iterator" tag="liip_imagine.async.transport_factory"/>
+            </call>
+            <call method="setPromiseFactories">
+                <argument type="tagged_iterator" tag="liip_imagine.async.promise_factory"/>
+            </call>
+        </service>
+        <service id="Liip\ImagineBundle\Async\CacheResolverInterface" alias="liip_imagine.async.cache_resolver"/>
+
+        <service id="liip_imagine.async.sync_promise_factory" class="Liip\ImagineBundle\Async\SyncPromiseFactory">
+            <tag name="liip_imagine.async.promise_factory"/>
+        </service>
+
+    </services>
+</container>

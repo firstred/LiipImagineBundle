@@ -13,17 +13,21 @@ namespace Liip\ImagineBundle\Async;
 
 use Enqueue\Util\JSON;
 use Liip\ImagineBundle\Exception\LogicException;
+use JsonSerializable;
+use function trigger_error;
+use const E_USER_DEPRECATED;
 
-class CacheResolved implements \JsonSerializable
+/**
+ * Class CacheResolved.
+ *
+ * @deprecated
+ */
+class CacheResolved implements JsonSerializable
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $path;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $uris;
 
     /**
@@ -32,6 +36,8 @@ class CacheResolved implements \JsonSerializable
      */
     public function __construct(string $path, array $uris)
     {
+        @trigger_error(CacheResolvedAsync::class . ' is deprecated.', E_USER_DEPRECATED);
+
         $this->path = $path;
         $this->uris = $uris;
     }
@@ -63,7 +69,7 @@ class CacheResolved implements \JsonSerializable
     /**
      * @param string $json
      *
-     * @return self
+     * @return CacheResolvedAsync
      */
     public static function jsonDeserialize(string $json): self
     {
@@ -80,3 +86,5 @@ class CacheResolved implements \JsonSerializable
         return new static($data['path'], $data['uris']);
     }
 }
+
+

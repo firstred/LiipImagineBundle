@@ -13,8 +13,15 @@ namespace Liip\ImagineBundle\Async;
 
 use Enqueue\Util\JSON;
 use Liip\ImagineBundle\Exception\LogicException;
+use JsonSerializable;
 
-class ResolveCache implements \JsonSerializable
+use function trigger_error;
+use const E_USER_DEPRECATED;
+
+/**
+ * Class ResolveCache.
+ */
+class ResolveCache implements JsonSerializable
 {
     /**
      * @var string
@@ -22,7 +29,7 @@ class ResolveCache implements \JsonSerializable
     private $path;
 
     /**
-     * @var array|\string[]|null
+     * @var array|string[]|null
      */
     private $filters;
 
@@ -38,6 +45,8 @@ class ResolveCache implements \JsonSerializable
      */
     public function __construct(string $path, array $filters = null, bool $force = false)
     {
+        @trigger_error(ResolveCache::class . ' is deprecated.', E_USER_DEPRECATED);
+
         $this->path = $path;
         $this->filters = $filters;
         $this->force = $force;
@@ -52,7 +61,7 @@ class ResolveCache implements \JsonSerializable
     }
 
     /**
-     * @return \string[]|null
+     * @return string[]|null
      */
     public function getFilters()
     {
@@ -88,7 +97,7 @@ class ResolveCache implements \JsonSerializable
             throw new LogicException('The message does not contain "path" but it is required.');
         }
 
-        if (!(null === $data['filters'] || \is_array($data['filters']))) {
+        if (!(null === $data['filters'] || is_array($data['filters']))) {
             throw new LogicException('The message filters could be either null or array.');
         }
 

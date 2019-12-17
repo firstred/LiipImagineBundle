@@ -12,11 +12,11 @@
 namespace Liip\ImagineBundle\Tests\Async;
 
 use Enqueue\Bundle\EnqueueBundle;
-use Liip\ImagineBundle\Async\CacheResolved;
+use Liip\ImagineBundle\Async\CacheResolvedAsync;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Liip\ImagineBundle\Async\CacheResolved
+ * @covers \Liip\ImagineBundle\Async\CacheResolvedAsync
  */
 class CacheResolvedTest extends TestCase
 {
@@ -29,7 +29,7 @@ class CacheResolvedTest extends TestCase
 
     public function testCouldBeJsonSerialized(): void
     {
-        $message = new CacheResolved('thePath', [
+        $message = new CacheResolvedAsync('thePath', [
             'fooFilter' => 'http://example.com/fooFilter/thePath',
             'barFilter' => 'http://example.com/barFilter/thePath',
         ]);
@@ -42,7 +42,7 @@ class CacheResolvedTest extends TestCase
 
     public function testCouldBeJsonDeSerialized(): void
     {
-        $message = CacheResolved::jsonDeserialize('{"path":"thePath","uris":{"fooFilter":"http:\/\/example.com\/fooFilter\/thePath","barFilter":"http:\/\/example.com\/barFilter\/thePath"}}');
+        $message = CacheResolvedAsync::jsonDeserialize('{"path":"thePath","uris":{"fooFilter":"http:\/\/example.com\/fooFilter\/thePath","barFilter":"http:\/\/example.com\/barFilter\/thePath"}}');
 
         $this->assertSame('thePath', $message->getPath());
         $this->assertSame([

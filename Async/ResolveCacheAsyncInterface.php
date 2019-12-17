@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the `liip/LiipImagineBundle` project.
  *
@@ -12,12 +14,17 @@
 namespace Liip\ImagineBundle\Async;
 
 /**
- * Class Topics.
- *
- * @deprecated
+ * Interface ResolveCacheAsyncInterface.
  */
-class Topics
+interface ResolveCacheAsyncInterface
 {
-    /** @var string */
-    const CACHE_RESOLVED = 'liip_imagine_cache_resolved';
+    public function getPath(): string;
+
+    public function getFilters(): ?array;
+
+    public function isForce(): bool;
+
+    public function includesQuick(): bool;
+
+    public function getMetaData();
 }
